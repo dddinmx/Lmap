@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#python版本2.7.5
+
+import telnetlib
+import socket 
+
+ 
+def get_service_status(ip,port):      #默认常用端口
+    server = telnetlib.Telnet()
+    try:
+        server.open(ip,port)
+        print('{0} port {1} is open => servive name:%s'.format(ip, port) %socket.getservbyport(port,'tcp'))
+    except Exception as err:
+        pass
+    finally:
+        server.close()
+
+def get_service_status_customize(ip,port):    #自定义端口
+    server = telnetlib.Telnet()
+    try:
+        server.open(ip,port)
+        print('{0} port {1} is open => servive name:%s'.format(ip, port) %socket.getservbyport(port,'tcp'))
+    except Exception as err:
+        print "port %d not open" % customize
+    finally:
+        server.close()
+
+def get_remote_machine_info():           #获取IP
+    remote_host = raw_input("domain:")
+    try:
+        print "IP Address:%s" %socket.gethostbyname(remote_host)
+    except socket.error,err_msg:
+        print "%s:%s" %(remote_host,err_msg)
+
+if __name__ == '__main__':
+    host = get_remote_machine_info()
+    print "1、常用端口  2、自定义端口"
+    pt = int(raw_input("端口类型："))
+    if pt == 1:
+    
+        for port in [20,21,22,23,25,80,137,139,161,443,445,3389,8080,8081,8888]:
+            get_service_status(host,port)
+    elif pt == 2:
+        customize = int(input("输入查询端口："))
+        get_service_status_customize(host,customize)
