@@ -2,7 +2,7 @@
 
 用法：python lmap.py
 
-domain:填写
+domain: 扫描地址
 
 选择模式：1、常用 2、自定义
 
